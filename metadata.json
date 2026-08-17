@@ -1,0 +1,6 @@
+{
+  "name": "Kurosaki Trading",
+  "description": "A complete bilingual corporate website for Kurosaki Trading Co., Ltd. covering farm-to-kitchen food supply chain solutions.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

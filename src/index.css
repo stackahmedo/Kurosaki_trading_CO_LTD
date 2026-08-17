@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Manrope:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;500;700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-forest: #0B513D;
+  --color-deepForest: #073E30;
+  --color-deepRed: #C92732;
+  --color-charcoal: #17231E;
+  --color-muted: #68716C;
+  --color-warmWhite: #FAFAF7;
+  --color-lightGray: #F2F4F1;
+  --color-borderGray: #D9DED9;
+
+  --font-sans: "Inter", "Noto Sans JP", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Manrope", "Noto Serif JP", ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+}
+
+@layer base {
+  body {
+    @apply font-sans text-charcoal bg-warmWhite;
+  }
+}
