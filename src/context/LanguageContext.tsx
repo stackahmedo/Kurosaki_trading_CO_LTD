@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { Language } from '../types';
 
 interface LanguageContextType {
@@ -11,6 +11,15 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguage] = useState<Language>('ja');
+
+  useEffect(() => {
+    document.documentElement.lang = language;
+    if (language === 'ja') {
+      document.title = '黒崎トレーディング株式会社 | Kurosaki Trading Co., Ltd.';
+    } else {
+      document.title = 'Kurosaki Trading Co., Ltd. | Global Food Supply Chain';
+    }
+  }, [language]);
 
   const t = (ja: string, en: string) => {
     return language === 'ja' ? ja : en;

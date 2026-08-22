@@ -7,7 +7,7 @@ export default function Sustainability() {
   
   const initiatives = [
     { icon: Leaf, ja: '持続可能な調達', en: 'Sustainable Sourcing', descJa: '環境に配慮した農法を実践する生産者との取引を優先し、農薬・化学肥料の使用低減を推進しています。', descEn: 'We prioritize working with producers who practice eco-friendly farming and promote the reduction of pesticides and chemical fertilizers.' },
-    { icon: Recycle, ja: '食品ロスの削減と資源循環', en: 'Reducing Food Loss & Resource Circulation', descJa: '規格外品の加工品への転用や、AIを活用した需要予測による在庫最適化により、サプライチェーン全体での食品ロス削減に努めています。', descEn: 'We strive to reduce food loss across the supply chain by repurposing off-spec products into processed foods and optimizing inventory using AI demand forecasting.' },
+    { icon: Recycle, ja: '食品ロスの削減と資源循環', en: 'Reducing Food Loss & Resource Circulation', descJa: '規格外品の加工品への転用や、データ分析を活用した需要予測による在庫最適化により、サプライチェーン全体での食品ロス削減に努めています。', descEn: 'We strive to reduce food loss across the supply chain by repurposing off-spec products into processed foods and optimizing inventory using data-driven demand forecasting.' },
     { icon: Sprout, ja: '環境配慮型パッケージング', en: 'Eco-friendly Packaging', descJa: '鮮度保持機能と環境負荷低減を両立する新素材の導入を進め、プラスチック使用量の削減を段階的に実施しています。', descEn: 'We are phasing in new materials that balance freshness preservation with reduced environmental impact, gradually reducing plastic usage.' },
     { icon: Users, ja: '地域社会・生産者との共生', en: 'Community & Producer Coexistence', descJa: '適正な価格での継続的な取引を通じて、生産者の経営安定化と地域農業の持続的な発展を支援しています。', descEn: 'Through continuous trading at fair prices, we support the financial stability of producers and the sustainable development of regional agriculture.' },
   ];

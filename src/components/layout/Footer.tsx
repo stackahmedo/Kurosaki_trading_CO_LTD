@@ -62,7 +62,7 @@ export function Footer() {
                 <a href="tel:0366576728" className="hover:text-white transition-colors">Tel: 03-6657-6728</a>
               </li>
               <li>
-                <a href="mailto:contact@kurosakitrading.co.jp" className="hover:text-white transition-colors">Email: contact@kurosakitrading.co.jp</a>
+                <a href="mailto:kurosakitrading@gmail.com" className="hover:text-white transition-colors">Email: kurosakitrading@gmail.com</a>
               </li>
             </ul>
           </div>

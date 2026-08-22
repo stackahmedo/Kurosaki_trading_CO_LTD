@@ -159,9 +159,10 @@ export default function Contact() {
         </form>
       </div>
 
-      <div className="mt-12 text-center text-sm text-charcoal/60">
-        <p>{t('営業時間: 平日 9:00 - 18:00', 'Business Hours: Weekdays 9:00 - 18:00 (JST)')}</p>
-        <p className="mt-2">{t('お電話でのお問い合わせ: 03-XXXX-XXXX', 'Contact by Phone: +81-3-XXXX-XXXX')}</p>
+      <div className="mt-12 text-center text-sm text-charcoal/60 space-y-1">
+        <p>{t('営業時間: 情報準備中', 'Business Hours: Information in preparation')}</p>
+        <p>{t('お電話でのお問い合わせ: 03-6657-6728', 'Contact by Phone: 03-6657-6728 (+81-3-6657-6728)')}</p>
+        <p>{t('メールでのお問い合わせ: kurosakitrading@gmail.com', 'Email: kurosakitrading@gmail.com')}</p>
       </div>
     </div>
   );

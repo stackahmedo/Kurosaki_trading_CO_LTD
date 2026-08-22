@@ -711,10 +711,10 @@ export default function Home() {
             )}
           </p>
           <div className="flex flex-col sm:flex-row justify-center gap-4">
-            <Button to="/contact" variant="outline" className="h-14 px-12 min-w-[180px] bg-white text-forest border-white hover:bg-lightGray text-[16px]">
+            <Button to="/contact" variant="outline" className="h-14 px-12 min-w-[180px] bg-white text-forest border-white hover:bg-warmWhite hover:text-forest text-[16px]">
               {t('お問い合わせ', 'Contact Us')}
             </Button>
-            <Button to="/contact?type=quote" variant="outline" className="h-14 px-12 min-w-[180px] text-white border-white hover:bg-white hover:text-forest text-[16px]">
+            <Button to="/contact?type=quote" variant="outline" className="h-14 px-12 min-w-[180px] bg-transparent text-white border-white hover:bg-white hover:text-forest text-[16px]">
               {t('見積もりを依頼する', 'Request a Quote')}
             </Button>
           </div>
