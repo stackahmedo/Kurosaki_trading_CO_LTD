@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useLanguage } from '../../context/LanguageContext';
+import { useSiteContent } from '../../context/SiteContentContext';
 import { Button } from '../ui/Button';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { cn } from '../../lib/utils';
 
 export function Header() {
   const { language, setLanguage, t } = useLanguage();
+  const { content } = useSiteContent();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -23,15 +25,13 @@ export function Header() {
     setMobileMenuOpen(false);
   }, [location]);
 
-  const navLinks = [
-    { to: '/', ja: 'ホーム', en: 'Home' },
-    { to: '/about', ja: '会社概要', en: 'About Us' },
-    { to: '/solutions', ja: '事業内容', en: 'Solutions' },
-    { to: '/products', ja: '商品・取扱分野', en: 'Products' },
-    { to: '/quality', ja: '品質管理', en: 'Quality Assurance' },
-    { to: '/sustainability', ja: 'サステナビリティ', en: 'Sustainability' },
-    { to: '/news', ja: 'お知らせ', en: 'News' },
-  ];
+  const navLinks = content.pages
+    .filter((p) => p.enabled && p.showInHeader)
+    .map((p) => ({
+      to: p.path,
+      ja: p.navLabel.ja,
+      en: p.navLabel.en,
+    }));
 
   return (
     <header
@@ -42,11 +42,11 @@ export function Header() {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex justify-between items-center">
         <Link to="/" className="flex items-center space-x-3">
-          <img src="/logo.svg" alt="KUROSAKI TRADING" className="w-12 h-12 object-contain" />
+          <img src={content.global.logoUrl} alt={content.global.shortName.en} className="w-12 h-12 object-contain" />
           <div>
-            <h1 className="text-[14px] font-bold leading-tight tracking-wider text-forest">
-              {t('黒崎トレーディング株式会社', 'KUROSAKI TRADING CO., LTD.')}
-            </h1>
+            <span className="text-[14px] font-bold leading-tight tracking-wider text-forest block">
+              {t(content.global.companyName.ja, content.global.companyName.en)}
+            </span>
           </div>
         </Link>
 
