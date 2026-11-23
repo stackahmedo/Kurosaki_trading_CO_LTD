@@ -33,6 +33,7 @@ export interface GlobalSettings {
   companyName: Bilingual;
   shortName: Bilingual;
   logoUrl: string;
+  faviconUrl: string;
   footerDescription: Bilingual;
   address: Bilingual;
   phone: string;

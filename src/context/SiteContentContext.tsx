@@ -82,6 +82,37 @@ export function SiteContentProvider({ children }: { children: ReactNode }) {
     root.style.setProperty('--color-warmWhite', content.theme.warmWhite);
   }, [content.theme]);
 
+  // Sync favicon to document <head>
+  useEffect(() => {
+    const href = content.global.faviconUrl?.trim();
+    if (!href) return;
+
+    const getMimeType = (url: string) => {
+      if (url.startsWith('data:image/svg+xml') || url.endsWith('.svg')) return 'image/svg+xml';
+      if (url.startsWith('data:image/png') || url.endsWith('.png')) return 'image/png';
+      if (url.startsWith('data:image/webp') || url.endsWith('.webp')) return 'image/webp';
+      if (url.startsWith('data:image/x-icon') || url.endsWith('.ico')) return 'image/x-icon';
+      return undefined;
+    };
+
+    const mime = getMimeType(href);
+    const rels = ['icon', 'alternate icon', 'apple-touch-icon'];
+    rels.forEach((rel) => {
+      let link = document.querySelector<HTMLLinkElement>(`link[rel="${rel}"]`);
+      if (!link) {
+        link = document.createElement('link');
+        link.rel = rel;
+        document.head.appendChild(link);
+      }
+      if (rel === 'icon' && mime) {
+        link.type = mime;
+      } else if (rel === 'icon') {
+        link.removeAttribute('type');
+      }
+      link.href = href;
+    });
+  }, [content.global.faviconUrl]);
+
   // Persist content to localStorage
   useEffect(() => {
     try {

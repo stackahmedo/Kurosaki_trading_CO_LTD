@@ -18,6 +18,7 @@ export const defaultSiteContent: SiteContent = {
       en: 'KUROSAKI TRADING',
     },
     logoUrl: '/logo.svg',
+    faviconUrl: '/logo.svg',
     footerDescription: {
       ja: '国内外の生産者と業務用厨房をつなぎ、調達から供給までの品質を一貫して管理します。',
       en: 'Connecting domestic and international producers with professional kitchens, ensuring consistent quality.',

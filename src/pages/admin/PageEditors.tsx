@@ -22,9 +22,28 @@ import {
 
 export function GlobalEditor() {
   const { content, updateContent, resetSection } = useSiteContent();
+  const faviconInputRef = useRef<HTMLInputElement>(null);
+  const [faviconError, setFaviconError] = useState('');
   const g = content.global;
   const setGlobal = (updater: (prev: typeof g) => typeof g) =>
     updateContent((prev) => ({ ...prev, global: updater(prev.global) }));
+
+  const handleFaviconUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    if (file.size > 512 * 1024) {
+      setFaviconError('File is too large (max 512 KB for favicon).');
+      e.target.value = '';
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => {
+      setFaviconError('');
+      setGlobal((prev) => ({ ...prev, faviconUrl: String(reader.result) }));
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  };
 
   return (
     <div className="space-y-6">
@@ -58,6 +77,76 @@ export function GlobalEditor() {
           value={g.logoUrl}
           onChange={(logoUrl) => setGlobal((prev) => ({ ...prev, logoUrl }))}
         />
+
+        {/* Favicon Manager */}
+        <div className="space-y-2 pt-2 border-t border-borderGray">
+          <label className="block text-xs font-bold uppercase tracking-wider text-charcoal/80">
+            Favicon (Browser Tab Icon)
+          </label>
+          <div className="flex flex-col sm:flex-row gap-3 items-start">
+            <div className="flex-1 w-full space-y-2">
+              <div className="flex gap-2">
+                <input
+                  type="text"
+                  value={g.faviconUrl ?? ''}
+                  placeholder="/favicon.svg, /favicon.png, or https://..."
+                  onChange={(e) => {
+                    setFaviconError('');
+                    setGlobal((prev) => ({ ...prev, faviconUrl: e.target.value }));
+                  }}
+                  className="flex-1 px-3 py-2 text-sm border border-borderGray rounded bg-white text-charcoal focus:outline-none focus:ring-2 focus:ring-forest/30 focus:border-forest"
+                />
+                <button
+                  type="button"
+                  onClick={() => faviconInputRef.current?.click()}
+                  className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold border border-forest text-forest rounded hover:bg-forest hover:text-white transition-colors shrink-0 cursor-pointer"
+                >
+                  <Upload className="w-3.5 h-3.5" /> Upload
+                </button>
+                <input
+                  ref={faviconInputRef}
+                  type="file"
+                  accept="image/svg+xml,image/png,image/x-icon,image/webp,image/jpeg"
+                  onChange={handleFaviconUpload}
+                  className="hidden"
+                />
+              </div>
+              {faviconError && <p className="text-xs text-deepRed">{faviconError}</p>}
+              <div className="flex flex-wrap items-center gap-2 text-[11px] text-muted">
+                <span>Quick select:</span>
+                {['/logo.svg', '/favicon.svg', '/favicon.png', '/logo.png'].map((preset) => (
+                  <button
+                    key={preset}
+                    type="button"
+                    onClick={() => setGlobal((prev) => ({ ...prev, faviconUrl: preset }))}
+                    className={`px-2 py-0.5 rounded border font-mono cursor-pointer transition-colors ${
+                      g.faviconUrl === preset
+                        ? 'border-forest bg-forest/10 text-forest font-bold'
+                        : 'border-borderGray bg-white hover:bg-lightGray'
+                    }`}
+                  >
+                    {preset}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Live Browser Tab Preview */}
+            <div className="border border-borderGray rounded-lg bg-lightGray/70 px-3 py-2.5 flex items-center gap-2.5 shrink-0 min-w-[180px]">
+              <div className="w-6 h-6 bg-white rounded border border-borderGray flex items-center justify-center overflow-hidden shrink-0">
+                {g.faviconUrl ? (
+                  <img src={g.faviconUrl} alt="Favicon preview" className="w-4 h-4 object-contain" />
+                ) : null}
+              </div>
+              <div className="truncate">
+                <div className="text-[11px] font-semibold text-charcoal truncate max-w-[120px]">
+                  {g.shortName.en || 'Tab Preview'}
+                </div>
+                <div className="text-[10px] text-muted">Browser tab preview</div>
+              </div>
+            </div>
+          </div>
+        </div>
         <BilingualInput
           label="Footer Tagline"
           value={g.footerDescription}
